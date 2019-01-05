@@ -3075,6 +3075,12 @@ void Spell::EffectTaunt(SpellEffIndex /*effIndex*/)
         return;
     }
 
+    if (m_spellInfo->Id == 62124)
+    {
+        if (m_targets.GetUnitTarget()->GetTarget() != unitCaster->GetGUID())
+            unitCaster->CastSpell(m_targets, 67485, true);
+    }
+
     ThreatManager& mgr = unitTarget->GetThreatManager();
     if (mgr.GetCurrentVictim() == unitCaster)
     {
@@ -3083,8 +3089,7 @@ void Spell::EffectTaunt(SpellEffIndex /*effIndex*/)
     }
 
     // Hand of Reckoning
-    if (m_spellInfo->Id == 62124)
-        unitCaster->CastSpell(unitTarget, 67485, true);
+
 
     if (!mgr.IsThreatListEmpty())
         // Set threat equal to highest threat currently on target

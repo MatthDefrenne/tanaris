@@ -594,7 +594,7 @@ bool Map::AddPlayerToMap(Player* player)
 
     sScriptMgr->OnPlayerEnterMap(this, player);
 
-    FlexDungeon::PlayerEnterInMap(player, this);
+    //FlexDungeon::PlayerEnterInMap(player, this);
     return true;
 }
 

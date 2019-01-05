@@ -143,7 +143,7 @@ public:
             break;
         case CLASS_SHAMAN:
             family = SPELLFAMILY_SHAMAN;
-            if (player->getLevel() == 2) {
+            if (player->getLevel() == 2 && !player->HasItemCount(5178, 1)) {
                 player->AddItem(5178, 1);
                 player->AddItem(5177, 1);
                 player->AddItem(5176, 1);
@@ -163,8 +163,12 @@ public:
                 continue;
             if (IsIgnoredSpell(spellInfo->Id))
                 continue;
+
             if (spellInfo->PowerType == POWER_FOCUS)
                 continue;
+ 
+
+            
             if (DisableMgr::IsDisabledFor(DISABLE_TYPE_SPELL, spellInfo->Id, player))
                 continue;
             if ((spellInfo->AttributesEx7 & SPELL_ATTR7_ALLIANCE_ONLY && player->GetTeam() != ALLIANCE) || (spellInfo->AttributesEx7 & SPELL_ATTR7_HORDE_ONLY && player->GetTeam() != HORDE))
@@ -186,6 +190,16 @@ public:
                         valid = false;
                         break;
                     }
+
+                    if (spellInfo->Id == 23455)
+                        valid = false;
+
+                    if (spellInfo->Id == 16979)
+                        valid = false;
+
+                    if (spellInfo->Id == 49376)
+                        valid = false;
+
                     if (GetTalentSpellPos(itr->second->spellId))
                         if (!prevSpell || !player->HasSpell(prevSpell->Id) || spellInfo->GetRank() == 1)
                             valid = false;

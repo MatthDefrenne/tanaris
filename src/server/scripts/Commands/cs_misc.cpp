@@ -218,7 +218,12 @@ public:
     static bool HandleGroupSummonCommand(ChatHandler* handler, char const* args) {
 
         Player* target = handler->GetSession()->GetPlayer();
+
+        if (!target)
+            return true;
+
         Group* group = target->GetGroup();
+      
         std::string nameLink = handler->GetNameLink(target);
 
         if (target->IsInCombat()) {

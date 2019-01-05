@@ -108,8 +108,7 @@ void FlexDungeon::PlayerRemovedFromGroup(Group * group)
     if (!group)
         return;
 
-    if (!group->InInstance())
-        return;
+  
     TC_LOG_ERROR("ERROR", "ERROR 2");
 
     BuffGroup(group, false);

@@ -31,8 +31,16 @@ public:
 
             QueryResult result = WorldDatabase.PQuery("SELECT map, position_x, position_y, position_z, orientation FROM playercreateinfo WHERE race = %u LIMIT 1", player->getRace());
 
+            if (!result)
+                return;
+
+
             Field* field = result->Fetch();
             AreaTableEntry const* zone = sAreaTableStore.LookupEntry(player->GetAreaId());
+
+            if (!zone)
+                return;
+
             int locale = player->GetSession()->GetSessionDbcLocale();
             std::string areaName = zone->area_name[locale];
 
