@@ -119,8 +119,10 @@ static bool IsSecondarySkill(SkillType skill)
 
 static void CompleteLearnProfession(Player *player, SkillType skill)
 {
-    if (PlayerAlreadyHasTwoProfessions(player) && !IsSecondarySkill(skill))
+    if (PlayerAlreadyHasTwoProfessions(player) && !IsSecondarySkill(skill)) {
         ChatHandler(player->GetSession()).PSendSysMessage("|cffCCFFFFYou have already two professions. |r");
+        return;
+    }
     else
     {
         if (!LearnAllRecipesInProfession(player, skill))

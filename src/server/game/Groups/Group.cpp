@@ -495,7 +495,7 @@ bool Group::RemoveMember(ObjectGuid guid, RemoveMethod const& method /*= GROUP_R
 {
     BroadcastGroupUpdate();
 
-    FlexDungeon::PlayerRemovedFromGroup(this);
+    //FlexDungeon::PlayerRemovedFromGroup(this);
 
     sScriptMgr->OnGroupRemoveMember(this, guid, method, kicker, reason);
 

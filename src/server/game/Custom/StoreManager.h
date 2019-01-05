@@ -9,7 +9,7 @@ class StoreManager {
 
 public:
 
-    struct StoreElement {
+        struct StoreElement {
         int cat_id;
         int cost;
         int promo;
