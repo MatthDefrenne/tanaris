@@ -191,7 +191,7 @@ public:
                         break;
                     }
 
-                    if (spellInfo->Id == 23455)
+                    if (spellInfo->Id == 23455 || spellInfo->Id == 23458 || spellInfo->Id == 23459 || spellInfo->Id == 27803 || spellInfo->Id == 27803 || spellInfo->Id == 27804 || spellInfo->Id == 27805 || spellInfo->Id == 25329)
                         valid = false;
 
                     if (spellInfo->Id == 16979)
