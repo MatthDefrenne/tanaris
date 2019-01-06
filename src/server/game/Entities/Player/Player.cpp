@@ -9478,10 +9478,10 @@ void Player::SetBindPoint(ObjectGuid guid) const
 
     if (zone) {
         int locale = this->GetSession()->GetSessionDbcLocale();
-        std::string areaName = zone->area_name[locale];
+        std::string string = zone->area_name[locale];
+        string.erase(std::remove(string.begin(), string.end(), '\''), string.end());
 
-        CharacterDatabase.PExecute("INSERT INTO character_innkeeper_zone  (guid, mapId, x, y, z, o, area_name) "
-            "VALUES('%u', '%u', '%f', '%f', '%f', '%f', '%s'); ", (uint32)this->GetGUID(), this->GetMapId(), this->GetPositionX(), this->GetPositionY(), this->GetPositionZ(), this->GetOrientation(), areaName);
+        CharacterDatabase.PQuery("INSERT INTO character_innkeeper_zone  (guid, mapId, x, y, z, o, area_name) VALUES('%u', '%u', '%f', '%f', '%f', '%f', '%s'); ", (uint32)this->GetGUID(), this->GetMapId(), this->GetPositionX(), this->GetPositionY(), this->GetPositionZ(), this->GetOrientation(), string);
     }
 
 
