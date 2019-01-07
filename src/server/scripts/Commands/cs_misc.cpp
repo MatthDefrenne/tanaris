@@ -270,7 +270,7 @@ public:
         {
             Group::MemberSlot const& slot = *itr;
             if (Player* member = ObjectAccessor::FindPlayer((*itr).guid)) {
-                if(member->GetGUID() != target->GetGUID() && target->GetGroup()->GetMemberGroup(member->GetGUID()))
+                if(member->GetGUID() != target->GetGUID())
                     member->SendSummonRequestFrom(target);
             }
         }

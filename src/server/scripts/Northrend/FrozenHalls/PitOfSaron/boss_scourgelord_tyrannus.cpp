@@ -455,7 +455,7 @@ class spell_tyrannus_overlord_brand : public SpellScriptLoader
                 if (GetTarget()->GetTypeId() != TYPEID_PLAYER)
                     return;
 
-                GetTarget()->SetAI(nullptr);
+                //GetTarget()->SetAI(nullptr);
             }
 
             void Register() override

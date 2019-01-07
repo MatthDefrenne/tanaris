@@ -328,8 +328,14 @@ class spell_warl_decimation : public SpellScriptLoader
             bool CheckProc(ProcEventInfo& eventInfo)
             {
                 if (SpellInfo const* spellInfo = eventInfo.GetSpellInfo())
+                {
                     if (eventInfo.GetActionTarget()->HasAuraState(AURA_STATE_HEALTHLESS_35_PERCENT, spellInfo, eventInfo.GetActor()))
                         return true;
+
+                    DamageInfo* damageInfo = eventInfo.GetDamageInfo();
+                    if (damageInfo && damageInfo->GetDamage() >= eventInfo.GetActionTarget()->GetHealth())
+                        return true;
+                }
 
                 return false;
             }

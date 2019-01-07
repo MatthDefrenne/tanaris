@@ -2921,7 +2921,7 @@ public:
         {
             Player* player = GetTarget()->ToPlayer();
 
-            player->SetAI(nullptr);
+            //player->SetAI(nullptr);
 
             // Dismiss ghoul if necessary
             if (Creature* ghoul = ObjectAccessor::GetCreature(*player, ghoulGuid))
