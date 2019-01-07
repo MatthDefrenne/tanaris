@@ -71,6 +71,7 @@
 #include "WorldSession.h"
 #include <cmath>
 #include "MapManager.h"
+#include "Autobalance.h"
 
 float baseMoveSpeed[MAX_MOVE_TYPE] =
 {
@@ -650,6 +651,8 @@ bool Unit::HasBreakableByDamageCrowdControlAura(Unit* excludeCasterChannel) cons
     // Hook for OnDamage Event
     sScriptMgr->OnDamage(attacker, victim, damage);
 
+    Autobalance::UpdateDamage(attacker, damage);
+
     if (victim->GetTypeId() == TYPEID_PLAYER && attacker != victim)
     {
         // Signal to pets that their owner was attacked - except when DOT.
@@ -1020,6 +1023,7 @@ void Unit::CalculateSpellDamageTaken(SpellNonMeleeDamage* damageInfo, int32 dama
 
     // Script Hook For CalculateSpellDamageTaken -- Allow scripts to change the Damage post class mitigation calculations
     sScriptMgr->ModifySpellDamageTaken(damageInfo->target, damageInfo->attacker, damage);
+
 
     // Calculate absorb resist
     if (damage < 0)

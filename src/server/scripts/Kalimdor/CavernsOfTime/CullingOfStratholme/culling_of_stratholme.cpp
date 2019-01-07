@@ -27,6 +27,7 @@
 #include "ScriptedGossip.h"
 #include "SpellInfo.h"
 #include "TemporarySummon.h"
+#include "Log.h"
 
 enum Says
 {
@@ -409,9 +410,10 @@ public:
                     bStepping = true;
                     break;
                 case 7:
-                    if (Unit* cityman0 = me->FindNearestCreature(NPC_CITY_MAN, 160.0f))
+                    TC_LOG_ERROR("ERROR", "SET CITY MAN");
+                    if (Unit* cityman0 = me->FindNearestCreature(NPC_CITY_MAN, 250.0f))
                         citymenGUID[0] = cityman0->GetGUID();
-                    if (Unit* cityman1 = me->FindNearestCreature(NPC_CITY_MAN2, 160.0f))
+                    if (Unit* cityman1 = me->FindNearestCreature(NPC_CITY_MAN2, 250.0f))
                         citymenGUID[1] = cityman1->GetGUID();
                     break;
                 case 8:
@@ -673,6 +675,12 @@ public:
                             break;
                         //After Gossip 1 (waypoint 8)
                         case 24:
+
+                            if (Unit* cityman0 = me->FindNearestCreature(NPC_CITY_MAN, 250.0f))
+                                citymenGUID[0] = cityman0->GetGUID();
+                            if (Unit* cityman1 = me->FindNearestCreature(NPC_CITY_MAN2, 250.0f))
+                                citymenGUID[1] = cityman1->GetGUID();
+
                             if (Unit* pStalker = me->SummonCreature(NPC_INVIS_TARGET, 2026.469f, 1287.088f, 143.596f, 1.37f, TEMPSUMMON_TIMED_DESPAWN, 14000))
                             {
                                 stalkerGUID = pStalker->GetGUID();
@@ -680,12 +688,11 @@ public:
                             }
 
                             instance->DoUpdateWorldState(WORLDSTATE_WAVE_COUNT, 0);
-
                             JumpToNextStep(1000);
                             break;
                         case 25:
                             Talk(SAY_PHASE201);
-                            JumpToNextStep(12000);
+                            JumpToNextStep(1000);
                             break;
                         case 26:
                             SetEscortPaused(false);
@@ -703,31 +710,31 @@ public:
                                 cityman->SetWalk(true);
                                 cityman->GetMotionMaster()->MovePoint(0, 2088.625f, 1279.191f, 140.743f);
                             }
-                            JumpToNextStep(2000);
+                            JumpToNextStep(1000);
                             break;
                         case 28:
                             if (Creature* cityman = ObjectAccessor::GetCreature(*me, citymenGUID[0]))
                                 cityman->AI()->Talk(SAY_PHASE202);
-                            JumpToNextStep(4000);
+                            JumpToNextStep(1000);
                             break;
                         case 29:
                             SetEscortPaused(false);
-                            bStepping = false;
+                            bStepping = true;
                             Talk(SAY_PHASE203);
                             JumpToNextStep(0);
                             break;
                         //After waypoint 10
                         case 30:
                             me->HandleEmoteCommand(37);
-                            JumpToNextStep(1000);
+                            JumpToNextStep(0);
                             break;
                         case 31:
                             SetEscortPaused(false);
-                            bStepping = false;
+                            bStepping = true;
                             if (Creature* cityman1 = ObjectAccessor::GetCreature(*me, citymenGUID[1]))
                             {
                                 cityman1->AI()->Talk(SAY_PHASE204);
-                                cityman1->SetTarget(me->GetGUID());
+                                //cityman1->SetTarget(me->GetGUID());
                                 if (Creature* cityman0 = ObjectAccessor::GetCreature(*me, citymenGUID[0]))
                                     cityman0->KillSelf();
                                 me->SetTarget(citymenGUID[1]);
@@ -1191,9 +1198,6 @@ public:
                 {
                     case 0: //This one is a workaround since the very beggining of the script is wrong.
                     {
-                        QuestStatus status = player->GetQuestStatus(13149);
-                        if (status != QUEST_STATUS_COMPLETE && status != QUEST_STATUS_REWARDED)
-                            return true;
                         AddGossipItemFor(player, GOSSIP_ICON_CHAT, GOSSIP_ITEM_ARTHAS_0, GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF);
                         SendGossipMenuFor(player, 907, me->GetGUID());
                         break;

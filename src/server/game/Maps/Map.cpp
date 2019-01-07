@@ -46,7 +46,6 @@
 #include "World.h"
 #include <unordered_set>
 #include <vector>
-#include "FlexDungeon.h"
 
 u_map_magic MapMagic        = { {'M','A','P','S'} };
 u_map_magic MapVersionMagic = { {'v','1','.','8'} };
@@ -959,7 +958,6 @@ void Map::RemovePlayerFromMap(Player* player, bool remove)
     player->UpdateZone(MAP_INVALID_ZONE, 0);
     sScriptMgr->OnPlayerLeaveMap(this, player);
 
-    FlexDungeon::PlayerLeaveMap(player, this);
 
     player->CombatStop();
 
