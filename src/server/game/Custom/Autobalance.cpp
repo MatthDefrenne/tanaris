@@ -107,7 +107,7 @@ void Autobalance::Update(Creature * creature)
 
 void Autobalance::DestroyMapCreature(Map* map, bool leave)
 {
-    if (!map->IsDungeon())
+    if (!map->IsRaid())
         return;
 
     uint32 playerCount = map->GetPlayersCountExceptGMs();

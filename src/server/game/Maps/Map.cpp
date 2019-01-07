@@ -46,6 +46,7 @@
 #include "World.h"
 #include <unordered_set>
 #include <vector>
+#include "Autobalance.h"
 
 u_map_magic MapMagic        = { {'M','A','P','S'} };
 u_map_magic MapVersionMagic = { {'v','1','.','8'} };
@@ -592,6 +593,7 @@ bool Map::AddPlayerToMap(Player* player)
         ConvertCorpseToBones(player->GetGUID());
 
     sScriptMgr->OnPlayerEnterMap(this, player);
+    Autobalance::DestroyMapCreature(this, true);
 
     //FlexDungeon::PlayerEnterInMap(player, this);
     return true;
@@ -972,6 +974,10 @@ void Map::RemovePlayerFromMap(Player* player, bool remove)
         player->RemoveFromGrid();
     else
         ASSERT(remove); //maybe deleted in logoutplayer when player is not in a map
+
+
+    Autobalance::DestroyMapCreature(this, inWorld);
+
 
     if (remove)
         DeleteFromWorld(player);
