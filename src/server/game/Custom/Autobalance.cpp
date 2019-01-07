@@ -75,7 +75,7 @@ void Autobalance::Update(Creature * creature)
         return;
 
 
-    if (!creature->getLevel() < 79)
+    if (creature->getLevel() < 79)
         return;
 
     if (creature->IsInCombat() && !creature->IsSummon())
@@ -123,8 +123,6 @@ void Autobalance::DestroyMapCreature(Map* map, bool leave)
     if (playerCount <= 1)
         return;
 
-
-    if(!Autobalance::m_creatures[map->GetInstanceId()].empty())
         Autobalance::m_creatures[map->GetInstanceId()].clear(); // we reset the map so the loop come on in Unit::update(Unit*);
 
     if (!map->GetPlayers().isEmpty())
@@ -150,7 +148,7 @@ void Autobalance::UpdateDamage(Unit * unit, uint32& damage)
     if (!creature->GetMap()->IsRaid())
         return;
 
-    if (!creature->getLevel() < 79)
+    if (creature->getLevel() < 79)
         return;
 
 
@@ -158,7 +156,6 @@ void Autobalance::UpdateDamage(Unit * unit, uint32& damage)
     InstanceMap* map = creature->GetMap()->ToInstanceMap();
 
     uint32 maxPlayers = map->GetMaxPlayers();
-
 
     uint32 diffPlayer = maxPlayers - playersCount;
 
