@@ -217,12 +217,17 @@ public:
 
     static bool HandleGroupSummonCommand(ChatHandler* handler, char const* args) {
 
+
+        if (!handler)
+            return true;
+
         Player* target = handler->GetSession()->GetPlayer();
 
         if (!target)
             return true;
 
         Group* group = target->GetGroup();
+
       
         std::string nameLink = handler->GetNameLink(target);
 
@@ -252,7 +257,7 @@ public:
         QueryResult result = LoginDatabase.PQuery("select TIMESTAMPDIFF(MINUTE, summon, NOW()) as time FROM account WHERE id = %u", target->GetSession()->GetAccountId());
 
         if (!result)
-            timeElapsed = 61;
+            return true;
 
         Field* field = result->Fetch();
         timeElapsed = field[0].GetUInt32();
@@ -265,7 +270,7 @@ public:
         {
             Group::MemberSlot const& slot = *itr;
             if (Player* member = ObjectAccessor::FindPlayer((*itr).guid)) {
-                if(member->GetGUID() != target->GetGUID())
+                if(member->GetGUID() != target->GetGUID() && target->GetGroup()->GetMemberGroup(member->GetGUID()))
                     member->SendSummonRequestFrom(target);
             }
         }

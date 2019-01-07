@@ -18,7 +18,6 @@
 #include "DBCStores.h"
 #include "WorldSession.h"
 #include "DBCStore.h"
-#include "FlexDungeon.h"
 
 class StooneInnkeeperPlayer : public PlayerScript {
 public:
@@ -57,6 +56,9 @@ public:
 
     bool OnUse(Player* player, Item* item, SpellCastTargets const& /*targets*/) override // Any hook here
     {
+
+        if (!player)
+            return false;
 
         if (player->IsInCombat())
             return false;

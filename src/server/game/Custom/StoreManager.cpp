@@ -208,6 +208,7 @@ void StoreManager::Buy(int elementId, Player* player)
 
         if (it->second.type == "additem") {
             player->AddItem(it->second.itemId, it->second.amount);
+            player->SaveToDB();
         }
 
         if (it->second.type == "levels") {

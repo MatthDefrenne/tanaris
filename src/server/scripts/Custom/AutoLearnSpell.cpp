@@ -194,6 +194,20 @@ public:
                     if (spellInfo->Id == 23455 || spellInfo->Id == 23458 || spellInfo->Id == 23459 || spellInfo->Id == 27803 || spellInfo->Id == 27803 || spellInfo->Id == 27804 || spellInfo->Id == 27805 || spellInfo->Id == 25329)
                         valid = false;
 
+
+                    if (spellInfo->Id == 23455 || spellInfo->Id == 23458 || spellInfo->Id == 23459 || spellInfo->Id == 27803 || spellInfo->Id == 27803 || spellInfo->Id == 27804 || spellInfo->Id == 27805 || spellInfo->Id == 25329)
+                        valid = false;
+
+                    if(spellInfo->Id == 24131
+                         || spellInfo->Id == 24134
+                        || spellInfo->Id == 24135
+                        || spellInfo->Id == 24136
+                        || spellInfo->Id == 26186
+                        || spellInfo->Id == 49009
+                        || spellInfo->Id == 49010
+                        || spellInfo->Id == 27069)
+                        valid = false;
+
                     if (spellInfo->Id == 16979)
                         valid = false;
 

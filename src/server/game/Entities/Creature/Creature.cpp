@@ -726,6 +726,7 @@ void Creature::Update(uint32 diff)
         case ALIVE:
         {
             Unit::Update(diff);
+
             Autobalance::Update(this);
             // creature can be dead after Unit::Update call
             // CORPSE/DEAD state will processed at next tick (in other case death timer will be updated unexpectedly)

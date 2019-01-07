@@ -70,13 +70,21 @@ Autobalance::~Autobalance()
 
 void Autobalance::Update(Creature * creature)
 {
+
     if (!creature)
+        return;
+
+
+    if (!creature->getLevel() < 79)
         return;
 
     if (creature->IsInCombat() && !creature->IsSummon())
         return;
 
     Map* dungeon = creature->GetMap();
+
+    if (!dungeon)
+        return;
 
     if (!dungeon->IsRaid())
         return;
@@ -112,26 +120,37 @@ void Autobalance::DestroyMapCreature(Map* map, bool leave)
 
     uint32 playerCount = map->GetPlayersCountExceptGMs();
 
-    Autobalance::m_creatures[map->GetInstanceId()].clear(); // we reset the map so the loop come on in Unit::update(Unit*);
+    if (playerCount <= 1)
+        return;
+
+
+    if(!Autobalance::m_creatures[map->GetInstanceId()].empty())
+        Autobalance::m_creatures[map->GetInstanceId()].clear(); // we reset the map so the loop come on in Unit::update(Unit*);
 
     if (!map->GetPlayers().isEmpty())
     {
         for (Map::PlayerList::const_iterator itr = map->GetPlayers().begin(); itr != map->GetPlayers().end(); ++itr)
         {
-            Player* playerInMap = itr->GetSource()->ToPlayer();
-                //ChatHandler(playerInMap->GetSession()).PSendSysMessage(playerInMap->GetSession()->GetTrinityString(LANG_AUTOBALANCE), map->GetMapName(), playerCount);
+            if(Player* playerInMap = itr->GetSource()->ToPlayer())
+                ChatHandler(playerInMap->GetSession()).PSendSysMessage("[Autobalance] : %s will be adapted for %u", map->GetMapName(), playerCount);
         }
     }
 }
 
 void Autobalance::UpdateDamage(Unit * unit, uint32& damage)
 {
+    if (!unit)
+        return;
+
     Creature* creature = unit->ToCreature();
 
     if (!creature)
         return;
 
     if (!creature->GetMap()->IsRaid())
+        return;
+
+    if (!creature->getLevel() < 79)
         return;
 
 
