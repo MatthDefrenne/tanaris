@@ -17,8 +17,17 @@ void resetCreature(Creature* creature) {
 
 void setHealthCreature(Map* dungeon, Creature* creature) {
 
+    if (!creature)
+        return;
+
+    if (!dungeon->IsRaid())
+        return;
+
     uint32 playersCount = dungeon->GetPlayersCountExceptGMs();
     InstanceMap* map = dungeon->ToInstanceMap();
+
+    if (!map)
+        return;
 
     uint32 maxPlayers = map->GetMaxPlayers();
 
@@ -167,7 +176,7 @@ void Autobalance::UpdateDamage(Unit * unit, uint32& damage)
     {
     case 5:
         for (size_t i = 0; i < diffPlayer; i++)
-            damage *= 0.62;
+            damage *= 0.63;
         break;
     case 10:
         for (size_t i = 0; i < diffPlayer; i++)

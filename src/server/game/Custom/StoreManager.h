@@ -17,6 +17,7 @@ public:
         std::string type;
         int amount;
         std::string text;
+        int gossipId;
     };
 
     static std::map<int /*category_id*/, std::string> StoreCategories;
@@ -27,4 +28,5 @@ public:
     static void Buy(int elementId, Player* player);
     static int GetDonationPoints(Player* player);
     static std::string GetStringPoints(Player* player);
+
 };

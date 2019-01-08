@@ -916,11 +916,11 @@ public:
                         case 61:
                             me->SetReactState(REACT_AGGRESSIVE);
                             if (Creature* disguised0 = ObjectAccessor::GetCreature(*me, infiniteDraconianGUID[0]))
-                                disguised0->SetTarget(me->GetGUID());
+                                //disguised0->SetTarget(me->GetGUID());
                             if (Creature* disguised1 = ObjectAccessor::GetCreature(*me, infiniteDraconianGUID[1]))
-                                disguised1->SetTarget(me->GetGUID());
+                                //disguised1->SetTarget(me->GetGUID());
                             if (Creature* disguised2 = ObjectAccessor::GetCreature(*me, infiniteDraconianGUID[2]))
-                                disguised2->SetTarget(me->GetGUID());
+                                //disguised2->SetTarget(me->GetGUID());
                             JumpToNextStep(1000);
                             break;
                         case 62:
@@ -931,7 +931,7 @@ public:
                         case 63:
                             Talk(SAY_PHASE303);
                             SetHoldState(false);
-                            bStepping = false;
+                            bStepping = true;
                             JumpToNextStep(0);
                             break;
                         //After waypoint 23

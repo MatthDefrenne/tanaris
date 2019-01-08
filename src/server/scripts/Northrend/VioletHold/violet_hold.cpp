@@ -334,7 +334,7 @@ class npc_sinclari_vh : public CreatureScript
                 me->SetFlag(UNIT_NPC_FLAGS, UNIT_NPC_FLAG_GOSSIP);
 
                 std::list<Creature*> guardList;
-                me->GetCreatureListWithEntryInGrid(guardList, NPC_VIOLET_HOLD_GUARD, 100.0f);
+                me->GetCreatureListWithEntryInGrid(guardList, NPC_VIOLET_HOLD_GUARD, 500.0f);
                 for (Creature* guard : guardList)
                 {
                     guard->Respawn(true);
@@ -342,6 +342,7 @@ class npc_sinclari_vh : public CreatureScript
                     guard->SetReactState(REACT_AGGRESSIVE);
                     guard->AI()->EnterEvadeMode();
                 }
+             
             }
 
             bool GossipHello(Player* player) override
@@ -946,6 +947,12 @@ class npc_azure_invader : public CreatureScript
         {
             npc_azure_invaderAI(Creature* creature) : violet_hold_trashAI(creature) { }
 
+            void Reset() override
+            {
+                me->DespawnOrUnsummon(7000);
+            }
+
+
             void ScheduledTasks() override
             {
                 if (me->GetEntry() == NPC_AZURE_INVADER_1)
@@ -993,6 +1000,13 @@ class npc_azure_binder : public CreatureScript
         struct npc_azure_binderAI : public violet_hold_trashAI
         {
             npc_azure_binderAI(Creature* creature) : violet_hold_trashAI(creature) { }
+
+
+            void Reset() override
+            {
+                me->DespawnOrUnsummon(7000);
+            }
+
 
             void ScheduledTasks() override
             {
@@ -1044,6 +1058,12 @@ class npc_azure_mage_slayer : public CreatureScript
         {
             npc_azure_mage_slayerAI(Creature* creature) : violet_hold_trashAI(creature) { }
 
+            void Reset() override
+            {
+                me->DespawnOrUnsummon(7000);
+            }
+
+
             void ScheduledTasks() override
             {
                 if (me->GetEntry() == NPC_AZURE_MAGE_SLAYER_1)
@@ -1082,6 +1102,12 @@ class npc_azure_raider : public CreatureScript
         {
             npc_azure_raiderAI(Creature* creature) : violet_hold_trashAI(creature) { }
 
+
+            void Reset() override
+            {
+                me->DespawnOrUnsummon(7000);
+            }
+
             void ScheduledTasks() override
             {
                 _scheduler.Schedule(Seconds(5), [this](TaskContext task)
@@ -1112,6 +1138,11 @@ class npc_azure_stalker : public CreatureScript
         struct npc_azure_stalkerAI : public violet_hold_trashAI
         {
             npc_azure_stalkerAI(Creature* creature) : violet_hold_trashAI(creature) { }
+
+            void Reset() override
+            {
+                me->DespawnOrUnsummon(7000);
+            }
 
             void ScheduledTasks() override
             {
@@ -1145,6 +1176,12 @@ class npc_azure_spellbreaker : public CreatureScript
         struct npc_azure_spellbreakerAI : public violet_hold_trashAI
         {
             npc_azure_spellbreakerAI(Creature* creature) : violet_hold_trashAI(creature) { }
+
+            void Reset() override
+            {
+                me->DespawnOrUnsummon(7000);
+            }
+
 
             void ScheduledTasks() override
             {
@@ -1197,6 +1234,13 @@ class npc_azure_captain : public CreatureScript
         {
             npc_azure_captainAI(Creature* creature) : violet_hold_trashAI(creature) { }
 
+
+            void Reset() override
+            {
+                me->DespawnOrUnsummon(7000);
+            }
+
+
             void ScheduledTasks() override
             {
                 _scheduler.Schedule(Seconds(5), [this](TaskContext task)
@@ -1224,9 +1268,18 @@ class npc_azure_sorceror : public CreatureScript
     public:
         npc_azure_sorceror() : CreatureScript("npc_azure_sorceror") { }
 
+
+
         struct  npc_azure_sorcerorAI : public violet_hold_trashAI
         {
             npc_azure_sorcerorAI(Creature* creature) : violet_hold_trashAI(creature) { }
+
+
+                void Reset() override
+            {
+                me->DespawnOrUnsummon(7000);
+            }
+
 
             void ScheduledTasks() override
             {

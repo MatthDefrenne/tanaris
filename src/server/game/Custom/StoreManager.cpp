@@ -170,6 +170,7 @@ void StoreManager::LoadStore()
         element.type = fields[5].GetString();
         element.amount = fields[6].GetInt32();
         element.text = fields[7].GetString();
+        element.gossipId = fields[7].GetInt32();
 
 
         StoreManager::StoreElements.insert(std::make_pair(id, element));
@@ -207,8 +208,12 @@ void StoreManager::Buy(int elementId, Player* player)
         }
 
         if (it->second.type == "additem") {
-            player->AddItem(it->second.itemId, it->second.amount);
-            player->SaveToDB();
+            if (player->AddItem(it->second.itemId, it->second.amount)) {
+                player->SaveToDB();
+            }
+            else {
+                return;
+            }
         }
 
         if (it->second.type == "levels") {

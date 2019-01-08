@@ -316,6 +316,24 @@ class spell_warl_curse_of_doom : public SpellScriptLoader
         }
 };
 
+
+class spell_soulsfirerank6 : public SpellScript
+{
+    PrepareSpellScript(spell_soulsfirerank6);
+
+    void HandleCast()
+    {
+        if (GetCaster()->HasAura(63158)) {
+            GetCaster()->CastSpell(nullptr, GetSpellInfo()->Id, TriggerCastFlags(TRIGGERED_FULL_MASK & ~TRIGGERED_IGNORE_POWER_AND_REAGENT_COST));
+        }
+    }
+
+    void Register() override
+    {
+        OnCast += SpellCastFn(spell_soulsfirerank6::HandleCast);
+    }
+};
+
 class spell_warl_decimation : public SpellScriptLoader
 {
     public:
@@ -328,17 +346,16 @@ class spell_warl_decimation : public SpellScriptLoader
             bool CheckProc(ProcEventInfo& eventInfo)
             {
                 if (SpellInfo const* spellInfo = eventInfo.GetSpellInfo())
-                {
-                    if (eventInfo.GetActionTarget()->HasAuraState(AURA_STATE_HEALTHLESS_35_PERCENT, spellInfo, eventInfo.GetActor()))
+                    if (eventInfo.GetActionTarget()->HasAuraState(AURA_STATE_HEALTHLESS_35_PERCENT, spellInfo, eventInfo.GetActor())) {
+                        for (uint8 i = 0; i < 3; ++i)
+                            GetCaster()->SetUInt32Value(PLAYER_NO_REAGENT_COST_1 + i, 1);
                         return true;
+                    }
 
-                    DamageInfo* damageInfo = eventInfo.GetDamageInfo();
-                    if (damageInfo && damageInfo->GetDamage() >= eventInfo.GetActionTarget()->GetHealth())
-                        return true;
-                }
 
                 return false;
             }
+
 
             void Register() override
             {
@@ -1607,4 +1624,5 @@ void AddSC_warlock_spell_scripts()
     new spell_warl_t4_2p_bonus<SPELL_WARLOCK_FLAMESHADOW>("spell_warl_t4_2p_bonus_shadow");
     new spell_warl_t4_2p_bonus<SPELL_WARLOCK_SHADOWFLAME>("spell_warl_t4_2p_bonus_fire");
     new spell_warl_unstable_affliction();
+    new spell_soulsfirerank6();
 }

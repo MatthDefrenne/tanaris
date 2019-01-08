@@ -198,6 +198,9 @@ void LFGMgr::LoadLFGDungeons(bool reload /* = false */)
         if (!dungeon)
             continue;
 
+
+        TC_LOG_ERROR("server.loading", ">> loaded dungeon ID %u, difficulty %u minlevel %u ", dungeon->map, dungeon->difficulty, dungeon->minlevel);
+
         switch (dungeon->type)
         {
             case LFG_TYPE_DUNGEON:
