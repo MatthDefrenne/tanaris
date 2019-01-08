@@ -6,7 +6,7 @@
 std::map<uint32 /* instance Id*/, std::map<uint32 /*creature guid*/, uint64 /*creature max health*/>> Autobalance::m_creatures = {};
 std::map<uint32 /*creature guid*/, uint64 /*creature max health*/> Autobalance::m_creaturesGUID = {};
 
-void resetCreature(Creature* creature) {
+void resetCreature(Unit* creature) {
     uint32 instanceId = creature->GetMap()->GetInstanceId();
     uint32 creatureMaxHealth = Autobalance::m_creaturesGUID[creature->GetGUID()];
     creature->SetMaxHealth(creatureMaxHealth);
@@ -15,19 +15,11 @@ void resetCreature(Creature* creature) {
 }
 
 
-void setHealthCreature(Map* dungeon, Creature* creature) {
+void setHealthCreature(Map* dungeon, Unit* creature) {
 
-    if (!creature)
-        return;
-
-    if (!dungeon->IsRaid())
-        return;
 
     uint32 playersCount = dungeon->GetPlayersCountExceptGMs();
     InstanceMap* map = dungeon->ToInstanceMap();
-
-    if (!map)
-        return;
 
     uint32 maxPlayers = map->GetMaxPlayers();
 
@@ -77,47 +69,31 @@ Autobalance::~Autobalance()
 {
 }
 
-void Autobalance::Update(Creature * creature)
+void Autobalance::Update(Unit * unit)
 {
 
-    if (!creature)
-        return;
+    if (unit && unit->GetMap()->IsRaid()) {
+        auto itX = Autobalance::m_creaturesGUID.find(unit->GetGUID());
+
+        if (itX == Autobalance::m_creaturesGUID.end())
+            // We save the creature max health if we don't have it
+            Autobalance::m_creaturesGUID[unit->GetGUID()] = unit->GetMaxHealth();
 
 
-    if (creature->getLevel() < 79)
-        return;
+        auto it = Autobalance::m_creatures.find(unit->GetMap()->GetInstanceId());
 
-    if (creature->IsInCombat() && !creature->IsSummon())
-        return;
-
-    Map* dungeon = creature->GetMap();
-
-    if (!dungeon)
-        return;
-
-    if (!dungeon->IsRaid())
-        return;
-
-    auto itX = Autobalance::m_creaturesGUID.find(creature->GetGUID());
-
-    if (itX == Autobalance::m_creaturesGUID.end())
-        // We save the creature max health if we don't have it
-        Autobalance::m_creaturesGUID[creature->GetGUID()] = creature->GetMaxHealth();
-
-
-    auto it = Autobalance::m_creatures.find(dungeon->GetInstanceId());
-
-    if (it != Autobalance::m_creatures.end()) {
-        // if we found the instance Id
-        auto itJ = it->second.find(creature->GetGUID());
-        if (itJ == it->second.end()) {
-            // if we don't found the creature guid, we reset them.
-            resetCreature(creature);
-            setHealthCreature(dungeon, creature);
+        if (it != Autobalance::m_creatures.end()) {
+            // if we found the instance Id
+            auto itJ = it->second.find(unit->GetGUID());
+            if (itJ == it->second.end()) {
+                // if we don't found the creature guid, we reset them.
+                resetCreature(unit);
+                setHealthCreature(unit->GetMap(), unit);
+            }
         }
-    }
-    else {
-        Autobalance::m_creatures[dungeon->GetInstanceId()] = {};
+        else {
+            Autobalance::m_creatures[unit->GetMap()->GetInstanceId()] = {};
+        }
     }
 
 }

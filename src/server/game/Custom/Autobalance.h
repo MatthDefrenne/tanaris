@@ -10,7 +10,7 @@ public:
     Autobalance();
     ~Autobalance();
 
-    static void Update(Creature* creature);
+    static void Update(Unit* unit);
     static void DestroyMapCreature(Map* map, bool leave);
     static void UpdateDamage(Unit* creature, uint32 &damage);
     static std::map<uint32 /* instance Id*/, std::map<uint32 /*creature guid*/, uint64 /*creature max health*/>> m_creatures;

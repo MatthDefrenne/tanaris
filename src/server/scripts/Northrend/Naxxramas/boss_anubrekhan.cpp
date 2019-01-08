@@ -188,8 +188,6 @@ public:
                         if (events.GetTimeUntilEvent(EVENT_LOCUST) < 5 * IN_MILLISECONDS) break; // don't chain impale tank -> locust swarm
                         if (Unit* target = SelectTarget(SELECT_TARGET_RANDOM, 0))
                             DoCast(target, SPELL_IMPALE);
-                        else
-                            EnterEvadeMode();
 
                         events.Repeat(randtime(Seconds(10), Seconds(20)));
                         break;

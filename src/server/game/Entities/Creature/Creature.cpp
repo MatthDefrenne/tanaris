@@ -726,8 +726,6 @@ void Creature::Update(uint32 diff)
         case ALIVE:
         {
             Unit::Update(diff);
-
-            Autobalance::Update(this);
             // creature can be dead after Unit::Update call
             // CORPSE/DEAD state will processed at next tick (in other case death timer will be updated unexpectedly)
             if (!IsAlive())
@@ -832,11 +830,14 @@ void Creature::Update(uint32 diff)
                     if (CreatureAI* ai = AI())
                         ai->EnterEvadeMode(CreatureAI::EVADE_REASON_NO_PATH);
             }
+
             break;
         }
         default:
             break;
     }
+
+
 }
 
 void Creature::Regenerate(Powers power)
