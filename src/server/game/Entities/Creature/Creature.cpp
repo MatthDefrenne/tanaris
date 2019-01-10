@@ -728,6 +728,7 @@ void Creature::Update(uint32 diff)
             Unit::Update(diff);
             // creature can be dead after Unit::Update call
             // CORPSE/DEAD state will processed at next tick (in other case death timer will be updated unexpectedly)
+
             if (!IsAlive())
                 break;
 
@@ -814,6 +815,8 @@ void Creature::Update(uint32 diff)
 
                 if (!IsInEvadeMode() && (!bInCombat || IsPolymorphed() || CanNotReachTarget())) // regenerate health if not in combat or if polymorphed
                     RegenerateHealth();
+
+              
 
                 if (GetPowerType() == POWER_ENERGY)
                     Regenerate(POWER_ENERGY);

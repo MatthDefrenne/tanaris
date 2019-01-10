@@ -84,7 +84,7 @@ enum WarlockSpells
     SPELL_WARLOCK_SHADOWFLAME                       = 37378,
     SPELL_WARLOCK_FLAMESHADOW                       = 37379,
     SPELL_WARLOCK_GLYPH_OF_SUCCUBUS                 = 56250,
-    SPELL_WARLOCK_IMPROVED_DRAIN_SOUL_R1            = 18213,
+    SPELL_WARLOCK_IMPROVED_DRAIN_SOUL_R1            = 18372,
     SPELL_WARLOCK_IMPROVED_DRAIN_SOUL_PROC          = 18371
 };
 

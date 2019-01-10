@@ -592,10 +592,7 @@ bool Map::AddPlayerToMap(Player* player)
     if (player->IsAlive())
         ConvertCorpseToBones(player->GetGUID());
 
-    sScriptMgr->OnPlayerEnterMap(this, player);
-    Autobalance::DestroyMapCreature(this, true);
 
-    //FlexDungeon::PlayerEnterInMap(player, this);
     return true;
 }
 
@@ -976,7 +973,6 @@ void Map::RemovePlayerFromMap(Player* player, bool remove)
         ASSERT(remove); //maybe deleted in logoutplayer when player is not in a map
 
 
-    Autobalance::DestroyMapCreature(this, inWorld);
 
 
     if (remove)
@@ -3852,6 +3848,7 @@ bool InstanceMap::AddPlayerToMap(Player* player)
     if (i_data)
         i_data->OnPlayerEnter(player);
 
+    //Autobalance::PlayerEnterInMap(player);
     return true;
 }
 

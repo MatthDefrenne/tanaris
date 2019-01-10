@@ -211,6 +211,9 @@ public:
                     if (spellInfo->Id == 16979)
                         valid = false;
 
+                    if (spellInfo->Id == 62904)
+                        valid = false;
+
                     if (spellInfo->Id == 49376)
                         valid = false;
 

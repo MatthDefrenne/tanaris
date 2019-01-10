@@ -6,6 +6,7 @@
 #include "WorldSession.h"
 #include "DatabaseEnv.h"
 #include "StoreManager.h"
+#include "Chat.h"
 
 #define MENU_ID 99999 // Our menuID used to match the sent menu to select hook (playerscript)
 
@@ -22,9 +23,22 @@ public:
 
         ClearGossipMenuFor(player);
 
-        if (action == 99999) {
+        if (action == 999998) {
+            uint32 dp = StoreManager::GetDonationPoints(player);
 
+            if (dp < 10) {
+                CloseGossipMenuFor(player);
+                ChatHandler(player->GetSession()).PSendSysMessage("|cffCCFFFFYou need to have at least 10 donations points.|r");
+                return;
+            }
+            CloseGossipMenuFor(player);
+            LoginDatabase.PQuery("UPDATE account SET vpoints = vpoints - 10, points = points + 1 WHERE id = %u", player->GetSession()->GetAccountId());
+            ChatHandler(player->GetSession()).PSendSysMessage("|cffCCFFFF Your votes points has been transformed in 1 donation point.|r");
+        }
+
+        if (action == 99999) {
             AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "Donations points : " + StoreManager::GetStringPoints(player), GOSSIP_SENDER_MAIN, 0);
+            AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "Transform my vote points into 1 donation point (10 vp = 10 dp)", GOSSIP_SENDER_MAIN, 999998);
 
             for (auto it = StoreManager::StoreCategories.begin(); it != StoreManager::StoreCategories.end(); it++)
             {
@@ -37,6 +51,7 @@ public:
         if (action < 1000) {
             std::map<int, StoreManager::StoreElement> TempMap = StoreManager::LoadElementsByCategoryId(action);
             AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "Donations points : " + StoreManager::GetStringPoints(player), GOSSIP_SENDER_MAIN, 0);
+            AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "Transform my vote points into 1 donation point (10 vp = 10 dp)", GOSSIP_SENDER_MAIN, 999998);
             for (auto it = TempMap.begin(); it != TempMap.end(); it++)
             {
                 if (it->first)

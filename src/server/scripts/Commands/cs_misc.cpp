@@ -202,6 +202,7 @@ public:
 
 
         AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "Donations points : " + StoreManager::GetStringPoints(player), GOSSIP_SENDER_MAIN, 0);
+        AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "Transform my vote points into 1 donation point (10 vp = 10 dp)", GOSSIP_SENDER_MAIN, 999998);
 
         for (auto it = StoreManager::StoreCategories.begin(); it != StoreManager::StoreCategories.end(); it++)
         {

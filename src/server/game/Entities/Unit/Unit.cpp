@@ -448,7 +448,6 @@ void Unit::Update(uint32 p_time)
         ModifyAuraState(AURA_STATE_HEALTHLESS_20_PERCENT, HealthBelowPct(20));
         ModifyAuraState(AURA_STATE_HEALTHLESS_35_PERCENT, HealthBelowPct(35));
         ModifyAuraState(AURA_STATE_HEALTH_ABOVE_75_PERCENT, HealthAbovePct(75));
-        //Autobalance::Update(this);
     }
 
     UpdateSplineMovement(p_time);
@@ -652,7 +651,6 @@ bool Unit::HasBreakableByDamageCrowdControlAura(Unit* excludeCasterChannel) cons
     // Hook for OnDamage Event
     sScriptMgr->OnDamage(attacker, victim, damage);
 
-    Autobalance::UpdateDamage(attacker, damage);
 
     if (victim->GetTypeId() == TYPEID_PLAYER && attacker != victim)
     {
@@ -8731,6 +8729,7 @@ void Unit::setDeathState(DeathState s)
         UnsummonAllTotems();
         RemoveAllControlled();
         RemoveAllAurasOnDeath();
+
     }
 
     if (s == JUST_DIED)
