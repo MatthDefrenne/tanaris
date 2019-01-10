@@ -1,0 +1,23 @@
+
+#include "Define.h"
+#include "GossipDef.h"
+#include "Item.h"
+#include "Player.h"
+#include "ScriptedGossip.h"
+#include "ScriptMgr.h"
+#include "Spell.h"
+#include "ObjectMgr.h"
+#include "WorldSession.h"
+#include "SpellMgr.h"
+#include "SpellDefines.h"
+#include "SpellInfo.h"
+#include "SharedDefines.h"
+#include <algorithm> // for std::find
+#include <iterator> // for std::begin, std::end
+#include "DatabaseEnv.h"
+#include "Map.h"
+#include "DBCStores.h"
+#include "WorldSession.h"
+#include "DBCStore.h"
+#include "Creature.h"
+#include "Log.h"

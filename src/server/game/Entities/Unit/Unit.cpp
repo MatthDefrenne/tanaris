@@ -651,6 +651,7 @@ bool Unit::HasBreakableByDamageCrowdControlAura(Unit* excludeCasterChannel) cons
     // Hook for OnDamage Event
     sScriptMgr->OnDamage(attacker, victim, damage);
 
+    Autobalance::UpdateDamage(attacker, damage);
 
     if (victim->GetTypeId() == TYPEID_PLAYER && attacker != victim)
     {

@@ -7,18 +7,13 @@
 class Autobalance
 {
 public:
+    Autobalance();
+    ~Autobalance();
 
-
-    struct playersWithoutBonus {
-        uint32 prevHealth;
-        uint32 prevAP;
-        uint32 prevSP;
-    };
-    static std::map<ObjectGuid, playersWithoutBonus> MplayersWithoutBonus;
-    static void PlayerEnterInMap(Player* player);
-    static void ApplyBonusModification(Player* player, uint32 diff);
-    static void RemoveBonusModification(Player* player, uint32 diff);
-    static void AdapteEachPlayersInGroup(Player* player, uint32 diff);
+    static void Update(Creature* creature);
+    static void DestroyMapCreature(Map* map, bool leave);
+    static void UpdateDamage(Unit* creature, uint32 &damage);
+    static std::map<uint32 /* instance Id*/, std::map<uint32 /*creature guid*/, uint64 /*creature max health*/>> m_creatures;
+    static std::map<uint32 /*creature guid*/, uint64 /*creature max health*/> m_creaturesGUID;
 
 };
-

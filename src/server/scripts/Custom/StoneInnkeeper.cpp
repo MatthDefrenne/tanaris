@@ -68,7 +68,7 @@ public:
 
 
         ClearGossipMenuFor(player); // Clears old options
-        QueryResult result = CharacterDatabase.PQuery("SELECT id, area_name FROM character_innkeeper_zone WHERE guid = %u ORDER BY id", player->GetGUID());
+        QueryResult result = CharacterDatabase.PQuery("SELECT id, area_name FROM character_innkeeper_zone WHERE guid = %u ORDER BY id LIMIT 30", player->GetGUID());
         if (result)
         {
             do

@@ -67,6 +67,10 @@ struct is_script_database_bound<CreatureScript>
     : std::true_type { };
 
 template<>
+struct is_script_database_bound<AllCreatureScript>
+    : std::true_type { };
+
+template<>
 struct is_script_database_bound<GameObjectScript>
     : std::true_type { };
 
@@ -1593,6 +1597,7 @@ CreatureAI* ScriptMgr::GetCreatureAI(Creature* creature)
     return tmpscript->GetAI(creature);
 }
 
+
 GameObjectAI* ScriptMgr::GetGameObjectAI(GameObject* gameobject)
 {
     ASSERT(gameobject);
@@ -1798,6 +1803,7 @@ void ScriptMgr::OnTransportUpdate(Transport* transport, uint32 diff)
     tmpscript->OnUpdate(transport, diff);
 }
 
+
 void ScriptMgr::OnRelocate(Transport* transport, uint32 waypointId, uint32 mapId, float x, float y, float z)
 {
     GET_SCRIPT(TransportScript, transport->GetScriptId(), tmpscript);
@@ -1918,6 +1924,12 @@ void ScriptMgr::OnPlayerEmote(Player* player, uint32 emote)
 {
     FOREACH_SCRIPT(PlayerScript)->OnEmote(player, emote);
 }
+
+void ScriptMgr::OnAllCreatureUpdate(Creature* creature, uint32 diff)
+{
+    FOREACH_SCRIPT(AllCreatureScript)->OnAllCreatureUpdate(creature, diff);
+}
+
 
 void ScriptMgr::OnPlayerTextEmote(Player* player, uint32 textEmote, uint32 emoteNum, ObjectGuid guid)
 {
@@ -2170,6 +2182,13 @@ UnitScript::UnitScript(char const* name, bool addToScripts)
         ScriptRegistry<UnitScript>::Instance()->AddScript(this);
 }
 
+
+AllCreatureScript::AllCreatureScript(char const* name)
+    : ScriptObject(name)
+{
+        ScriptRegistry<AllCreatureScript>::Instance()->AddScript(this);
+}
+
 WorldMapScript::WorldMapScript(char const* name, uint32 mapId)
     : ScriptObject(name), MapScript<Map>(sMapStore.LookupEntry(mapId))
 {
@@ -2217,6 +2236,7 @@ CreatureScript::CreatureScript(char const* name)
 {
     ScriptRegistry<CreatureScript>::Instance()->AddScript(this);
 }
+
 
 GameObjectScript::GameObjectScript(char const* name)
     : ScriptObject(name)
@@ -2356,3 +2376,4 @@ template class TC_GAME_API ScriptRegistry<GuildScript>;
 template class TC_GAME_API ScriptRegistry<GroupScript>;
 template class TC_GAME_API ScriptRegistry<UnitScript>;
 template class TC_GAME_API ScriptRegistry<AccountScript>;
+template class TC_GAME_API ScriptRegistry<AllCreatureScript>;

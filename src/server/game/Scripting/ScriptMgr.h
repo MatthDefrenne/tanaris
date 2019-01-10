@@ -392,6 +392,24 @@ class TC_GAME_API ItemScript : public ScriptObject
         virtual void OnGossipSelectCode(Player* /*player*/, Item* /*item*/, uint32 /*sender*/, uint32 /*action*/, const char* /*code*/) { }
 };
 
+
+class TC_GAME_API AllCreatureScript : public ScriptObject, public UpdatableScript<Creature>
+{
+protected:
+
+    AllCreatureScript(const char* name);
+
+public:
+
+    // Called from End of Creature Update.
+    virtual void OnAllCreatureUpdate(Creature* /*creature*/, uint32 /*diff*/) { }
+
+    // Called from End of Creature SelectLevel.
+    virtual void Creature_SelectLevel(const CreatureTemplate* /*cinfo*/, Creature* /*creature*/) { }
+};
+
+
+
 class TC_GAME_API UnitScript : public ScriptObject
 {
     protected:
@@ -415,7 +433,7 @@ class TC_GAME_API UnitScript : public ScriptObject
         virtual void ModifySpellDamageTaken(Unit* /*target*/, Unit* /*attacker*/, int32& /*damage*/) { }
 };
 
-class TC_GAME_API CreatureScript : public UnitScript
+class TC_GAME_API CreatureScript : public UnitScript,  public UpdatableScript<Creature>
 {
     protected:
 
@@ -1069,6 +1087,7 @@ class TC_GAME_API ScriptMgr
         void ModifyPeriodicDamageAurasTick(Unit* target, Unit* attacker, uint32& damage);
         void ModifyMeleeDamage(Unit* target, Unit* attacker, uint32& damage);
         void ModifySpellDamageTaken(Unit* target, Unit* attacker, int32& damage);
+        void OnAllCreatureUpdate(Creature* creature, uint32 diff);
 
     private:
         uint32 _scriptCount;

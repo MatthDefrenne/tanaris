@@ -840,6 +840,7 @@ void Creature::Update(uint32 diff)
             break;
     }
 
+    Autobalance::Update(this);
 
 }
 
@@ -3199,6 +3200,7 @@ void Creature::AtEnterCombat()
         UpdateSpeed(MOVE_SWIM);
         UpdateSpeed(MOVE_FLIGHT);
     }
+
 }
 
 void Creature::AtExitCombat()
