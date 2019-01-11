@@ -7,6 +7,318 @@
 #include "DatabaseEnv.h"
 #include "StoreManager.h"
 #include "Chat.h"
+#include "ItemTemplate.h"
+#include "Item.h"
+#include "ObjectMgr.h"
+
+const uint32 GOSSIP_TANK = 500500;
+const uint32 GOSSIP_DPS = 500501;
+const uint32 GOSSIP_DPS_CAST = 500502;
+const uint32 GOSSIP_HEAL = 500503;
+
+
+
+void GiveAllStuff(Player* player, uint32 Specialization) {
+    switch (player->getClass())
+    {
+    case CLASS_WARRIOR:
+        if (Specialization == GOSSIP_TANK) {
+            player->StoreNewItemInBestSlots(37179, 1);
+            player->StoreNewItemInBestSlots(37162, 1);
+            player->StoreNewItemInBestSlots(37728, 1);
+            player->StoreNewItemInBestSlots(35680, 1);
+            player->StoreNewItemInBestSlots(37064, 1);
+            player->StoreNewItemInBestSlots(36993, 1);
+        }
+        if (Specialization == GOSSIP_DPS) {
+            player->StoreNewItemInBestSlots(43281, 1);
+            player->StoreNewItemInBestSlots(43281, 1);
+            player->StoreNewItemInBestSlots(37840, 1);
+            player->StoreNewItemInBestSlots(37096, 1);
+            player->StoreNewItemInBestSlots(37723, 1);
+            player->StoreNewItemInBestSlots(37064, 1);
+        }
+        player->LearnSpell(750, false);
+        player->LearnSpell(197, false);
+
+        break;
+    case CLASS_ROGUE:
+        player->StoreNewItemInBestSlots(37181, 1);
+        player->StoreNewItemInBestSlots(37181, 1);
+        player->StoreNewItemInBestSlots(37840, 1);
+        player->StoreNewItemInBestSlots(37096, 1);
+        player->StoreNewItemInBestSlots(37723, 1);
+        player->StoreNewItemInBestSlots(37064, 1);
+        player->StoreNewItemInBestSlots(36981, 1);
+        break;
+    case CLASS_PALADIN:
+        if (Specialization == GOSSIP_TANK) {
+            player->StoreNewItemInBestSlots(37179, 1);
+            player->StoreNewItemInBestSlots(37162, 1);
+            player->StoreNewItemInBestSlots(37728, 1);
+            player->StoreNewItemInBestSlots(35680, 1);
+            player->StoreNewItemInBestSlots(37064, 1);
+            player->StoreNewItemInBestSlots(36993, 1);
+            player->StoreNewItemInBestSlots(38363, 1);
+
+        }
+        if (Specialization == GOSSIP_DPS) {
+            player->StoreNewItemInBestSlots(43281, 1);
+            player->StoreNewItemInBestSlots(37840, 1);
+            player->StoreNewItemInBestSlots(37096, 1);
+            player->StoreNewItemInBestSlots(37723, 1);
+            player->StoreNewItemInBestSlots(37064, 1);
+            player->StoreNewItemInBestSlots(38362, 1);
+
+        }
+        if (Specialization == GOSSIP_HEAL) {
+            player->StoreNewItemInBestSlots(37216, 1);
+            player->StoreNewItemInBestSlots(37681, 1);
+            player->StoreNewItemInBestSlots(37799, 1);
+            player->StoreNewItemInBestSlots(36972, 1);
+            player->StoreNewItemInBestSlots(38613, 1);
+            player->StoreNewItemInBestSlots(37111, 1);
+            player->StoreNewItemInBestSlots(38364, 1);
+        }
+        player->LearnSpell(750, false);
+        player->LearnSpell(197, false);
+
+        break;
+    case CLASS_SHAMAN:
+        if (Specialization == GOSSIP_DPS_CAST) {
+            player->StoreNewItemInBestSlots(37216, 1);
+            player->StoreNewItemInBestSlots(37681, 1);
+            player->StoreNewItemInBestSlots(37799, 1);
+            player->StoreNewItemInBestSlots(36972, 1);
+            player->StoreNewItemInBestSlots(38613, 1);
+            player->StoreNewItemInBestSlots(47215, 1);
+            player->StoreNewItemInBestSlots(28248, 1);
+
+        }
+        if (Specialization == GOSSIP_DPS) {
+            player->StoreNewItemInBestSlots(37631, 1);
+            player->StoreNewItemInBestSlots(37631, 1);
+            player->StoreNewItemInBestSlots(37840, 1);
+            player->StoreNewItemInBestSlots(37096, 1);
+            player->StoreNewItemInBestSlots(37723, 1);
+            player->StoreNewItemInBestSlots(37064, 1);
+            player->StoreNewItemInBestSlots(27815, 1);
+
+        }
+        if (Specialization == GOSSIP_HEAL) {
+            player->StoreNewItemInBestSlots(37216, 1);
+            player->StoreNewItemInBestSlots(37681, 1);
+            player->StoreNewItemInBestSlots(37799, 1);
+            player->StoreNewItemInBestSlots(36972, 1);
+            player->StoreNewItemInBestSlots(38613, 1);
+            player->StoreNewItemInBestSlots(37111, 1);
+            player->StoreNewItemInBestSlots(38368, 1);
+
+        }
+        player->LearnSpell(8737, false);
+        player->LearnSpell(15590, false);
+        break;
+    case CLASS_WARLOCK:
+    case CLASS_MAGE:
+        player->StoreNewItemInBestSlots(36975, 1);
+        player->StoreNewItemInBestSlots(37799, 1);
+        player->StoreNewItemInBestSlots(38613, 1);
+        player->StoreNewItemInBestSlots(36972, 1);
+        player->StoreNewItemInBestSlots(37038, 1);
+        player->StoreNewItemInBestSlots(47215, 1);
+
+        break;
+    case CLASS_DRUID:
+        if (Specialization == GOSSIP_TANK) {
+            player->StoreNewItemInBestSlots(36980, 1);
+            player->StoreNewItemInBestSlots(37840, 1);
+            player->StoreNewItemInBestSlots(37096, 1);
+            player->StoreNewItemInBestSlots(36993, 1);
+            player->StoreNewItemInBestSlots(37064, 1);
+            player->StoreNewItemInBestSlots(38365, 1);
+
+        }
+        if (Specialization == GOSSIP_DPS_CAST) {
+            player->StoreNewItemInBestSlots(36975, 1);
+            player->StoreNewItemInBestSlots(37799, 1);
+            player->StoreNewItemInBestSlots(38613, 1);
+            player->StoreNewItemInBestSlots(36972, 1);
+            player->StoreNewItemInBestSlots(37064, 1);
+            player->StoreNewItemInBestSlots(38360, 1);
+            player->StoreNewItemInBestSlots(47215, 1);
+
+        }
+        if (Specialization == GOSSIP_DPS) {
+            player->StoreNewItemInBestSlots(37840, 1);
+            player->StoreNewItemInBestSlots(37096, 1);
+            player->StoreNewItemInBestSlots(37723, 1);
+            player->StoreNewItemInBestSlots(37064, 1);
+            player->StoreNewItemInBestSlots(38365, 1);
+
+        }
+        if (Specialization == GOSSIP_HEAL) {
+            player->StoreNewItemInBestSlots(36975, 1);
+            player->StoreNewItemInBestSlots(37799, 1);
+            player->StoreNewItemInBestSlots(38613, 1);
+            player->StoreNewItemInBestSlots(36972, 1);
+            player->StoreNewItemInBestSlots(37111, 1);
+            player->StoreNewItemInBestSlots(38366, 1);
+
+        }
+        break;
+    case CLASS_DEATH_KNIGHT:
+        if (Specialization == GOSSIP_TANK) {
+            player->StoreNewItemInBestSlots(43281, 1);
+            player->StoreNewItemInBestSlots(37728, 1);
+            player->StoreNewItemInBestSlots(35680, 1);
+            player->StoreNewItemInBestSlots(37064, 1);
+            player->StoreNewItemInBestSlots(36993, 1);
+
+        }
+        if (Specialization == GOSSIP_DPS) {
+            player->StoreNewItemInBestSlots(43281, 1);
+            player->StoreNewItemInBestSlots(37840, 1);
+            player->StoreNewItemInBestSlots(37096, 1);
+            player->StoreNewItemInBestSlots(37723, 1);
+            player->StoreNewItemInBestSlots(37064, 1);
+        }
+        player->StoreNewItemInBestSlots(40867, 1);
+        player->LearnSpell(197, false);
+        break;
+    case CLASS_HUNTER:
+        player->StoreNewItemInBestSlots(35645, 1);
+        player->StoreNewItemInBestSlots(36980, 1);
+        player->StoreNewItemInBestSlots(37840, 1);
+        player->StoreNewItemInBestSlots(37096, 1);
+        player->StoreNewItemInBestSlots(37723, 1);
+        player->StoreNewItemInBestSlots(37064, 1);
+        player->LearnSpell(8737, false);
+        player->LearnSpell(266, false);
+        player->LearnSpell(227, false);
+        break;
+
+    case CLASS_PRIEST:
+        player->StoreNewItemInBestSlots(36975, 1);
+        player->StoreNewItemInBestSlots(37799, 1);
+        player->StoreNewItemInBestSlots(38613, 1);
+        player->StoreNewItemInBestSlots(36972, 1);
+        player->StoreNewItemInBestSlots(37038, 1);
+        player->StoreNewItemInBestSlots(47215, 1);
+
+        break;
+    default:
+        break;
+    }
+}
+void FindGearForClass(Player* playerTarget, uint32 itemSetId, uint32 Specialization) {
+    ItemTemplateContainer const& its = sObjectMgr->GetItemTemplateStore();
+    for (auto const& itemTemplatePair : its)
+    {
+        if (itemTemplatePair.second.ItemSet != itemSetId)
+            continue;
+
+        ItemPosCountVec dest;
+        InventoryResult msg = playerTarget->CanStoreNewItem(NULL_BAG, NULL_SLOT, dest, itemTemplatePair.first, 1);
+        if (msg == EQUIP_ERR_OK)
+        {
+            playerTarget->StoreNewItemInBestSlots(itemTemplatePair.first, 1);
+        }
+    }
+}
+
+void Boost(Player* player, uint32 Specialization, uint32 free) {
+    player->GiveLevel(80); // Levelup to 80
+    player->StoreNewItemInBestSlots(4500, 4);
+    player->UpdateSkillsForLevel();
+    switch (player->getClass())
+    {
+    case CLASS_WARRIOR:
+         FindGearForClass(player, 816, Specialization);
+        break;
+    case CLASS_ROGUE:
+      
+        FindGearForClass(player, 813, Specialization);
+        break;
+    case CLASS_PALADIN:
+        if (Specialization == GOSSIP_DPS  || Specialization == GOSSIP_TANK)
+            FindGearForClass(player, 816, Specialization);
+        if (Specialization == GOSSIP_HEAL)
+            FindGearForClass(player, 814, Specialization);
+        break;
+    case CLASS_SHAMAN:
+        if (Specialization == GOSSIP_DPS)
+            FindGearForClass(player, 818, Specialization);
+        if (Specialization == GOSSIP_DPS_CAST || Specialization == GOSSIP_HEAL)
+            FindGearForClass(player, 817, Specialization);
+        break;
+    case CLASS_WARLOCK:
+        FindGearForClass(player, 819, Specialization);
+        break;
+    case CLASS_MAGE:
+        FindGearForClass(player, 819, Specialization);
+        break;
+    case CLASS_DRUID:
+        if(Specialization == GOSSIP_TANK || Specialization == GOSSIP_DPS)
+            FindGearForClass(player, 813, Specialization);
+        if (Specialization == GOSSIP_DPS_CAST || Specialization == GOSSIP_HEAL)
+            FindGearForClass(player, 815, Specialization);
+        break;
+    case CLASS_DEATH_KNIGHT:
+        FindGearForClass(player, 816, Specialization);
+        break;
+    case CLASS_HUNTER:
+        FindGearForClass(player, 818, Specialization);
+        break;
+    case CLASS_PRIEST:
+        FindGearForClass(player, 819, Specialization);
+        break;
+    default:
+        break;
+    }
+
+    GiveAllStuff(player, Specialization);
+   
+    player->AddItem(37719, 1); // mount
+    player->ModifyMoney(10000000); // 1000 golds
+
+    player->LearnSpell(33388, true);
+    player->LearnSpell(33391, true);
+    player->LearnSpell(34090, true);
+    player->LearnSpell(34090, true);
+    player->LearnSpell(34091, true);
+    player->LearnSpell(54197, true);
+
+    if (player->GetTeam() == TEAM_ALLIANCE)
+        player->AddItem(25474, 1);
+    else
+        player->AddItem(25471, 1);
+
+
+    // Teleport to dalaran.
+    player->TeleportTo(571, 5804.458008f, 623.387573f, 647.822709f, 1.651779f);
+
+    if (free == 1) {
+        LoginDatabase.PQuery("UPDATE account SET points = points - 50 WHERE id = %u", player->GetSession()->GetAccountId());
+    }
+    else {
+        LoginDatabase.PQuery("UPDATE account SET freeCharacterBoostAvailable = freeCharacterBoostAvailable - 1 WHERE id = %u", player->GetSession()->GetAccountId());
+    }
+
+    CloseGossipMenuFor(player);
+}
+
+
+void ShowSpecializationChoice(Player* player) {
+    if (player->getClass() == CLASS_WARRIOR || player->getClass() == CLASS_PALADIN || player->getClass() == CLASS_DRUID || player->getClass() == CLASS_DEATH_KNIGHT)
+        AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "Specialization TANK", GOSSIP_SENDER_MAIN, GOSSIP_TANK, "Are you sur?", 0, false);
+    if (player->getClass() == CLASS_PALADIN || player->getClass() == CLASS_DRUID || player->getClass() == CLASS_SHAMAN || player->getClass() == CLASS_PRIEST)
+        AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "Specialization HEAL", GOSSIP_SENDER_MAIN, GOSSIP_HEAL, "Are you sur?", 0, false);
+    if (player->getClass() == CLASS_WARLOCK || player->getClass() == CLASS_DRUID || player->getClass() == CLASS_MAGE || player->getClass() == CLASS_SHAMAN || player->getClass() == CLASS_PRIEST || player->getClass() == CLASS_PRIEST)
+    AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "Specialization DPS CAST", GOSSIP_SENDER_MAIN, GOSSIP_DPS_CAST, "Are you sur?", 0, false);
+    if (player->getClass() == CLASS_HUNTER || player->getClass() == CLASS_ROGUE || player->getClass() == CLASS_SHAMAN || player->getClass() == CLASS_DEATH_KNIGHT|| player->getClass() == CLASS_PALADIN || player->getClass() == CLASS_DRUID || player->getClass() == CLASS_WARRIOR)
+    AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "Specialization DPS", GOSSIP_SENDER_MAIN, GOSSIP_DPS, "Are you sur?", 0, false);
+        SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, player->GetGUID());
+}
 
 #define MENU_ID 99999 // Our menuID used to match the sent menu to select hook (playerscript)
 
@@ -14,6 +326,9 @@ class PlayerGossipStore : public PlayerScript
 {
 public: 
     PlayerGossipStore() : PlayerScript("PlayerGossipStore") {}
+
+    uint32 DP_OR_FREE;
+
 
     void OnGossipSelect(Player* player, uint32 menu_id, uint32 /*sender*/, uint32 action) override
     {
@@ -23,12 +338,29 @@ public:
 
         ClearGossipMenuFor(player);
 
-        if (action == 999998) {
-            uint32 dp = StoreManager::GetDonationPoints(player);
 
-            if (dp < 10) {
+        if (action == GOSSIP_TANK) {
+            Boost(player, GOSSIP_TANK, DP_OR_FREE);
+        }
+
+        if (action == GOSSIP_DPS) {
+            Boost(player, GOSSIP_DPS, DP_OR_FREE);
+        }
+
+        if (action == GOSSIP_HEAL) {
+            Boost(player, GOSSIP_HEAL, DP_OR_FREE);
+        }
+
+        if (action == GOSSIP_DPS_CAST) {
+            Boost(player, GOSSIP_DPS_CAST, DP_OR_FREE);
+        }
+         
+        if (action == 999998) {
+            uint32 vp = StoreManager::GetVotesPoints(player);
+
+            if (vp < 10) {
                 CloseGossipMenuFor(player);
-                ChatHandler(player->GetSession()).PSendSysMessage("|cffCCFFFFYou need to have at least 10 donations points.|r");
+                ChatHandler(player->GetSession()).PSendSysMessage("|cffCCFFFFYou need to have at least 10 votes points.|r");
                 return;
             }
             CloseGossipMenuFor(player);
@@ -36,10 +368,43 @@ public:
             ChatHandler(player->GetSession()).PSendSysMessage("|cffCCFFFF Your votes points has been transformed in 1 donation point.|r");
         }
 
+
+        if (action == 999997) {
+            AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "Buy boost with donations points (50 dp)", GOSSIP_SENDER_MAIN, 999995);
+            AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "Use your free character boost", GOSSIP_SENDER_MAIN, 999996);
+            AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "<- Back", GOSSIP_SENDER_MAIN, 99999);
+            SendGossipMenuFor(player, 50050, player->GetGUID());
+        }
+
+        if (action == 999995) {
+            uint32 dp = StoreManager::GetDonationPoints(player);
+
+            if (dp < 50) {
+                CloseGossipMenuFor(player);
+                ChatHandler(player->GetSession()).PSendSysMessage("|cffCCFFFFYou need to have at least 50 donations points.|r");
+                return;
+            }
+            DP_OR_FREE = 1;
+            ShowSpecializationChoice(player);
+        }
+
+        if (action == 999996) {
+            uint32 fp = StoreManager::GetFreeBoost(player);
+
+            if (fp < 1) {
+                CloseGossipMenuFor(player);
+                ChatHandler(player->GetSession()).PSendSysMessage("|cffCCFFFFYou need to have at least 1 character free boost.|r");
+                return;
+            }
+            DP_OR_FREE = 0;
+            ShowSpecializationChoice(player);
+        }
+
         if (action == 99999) {
             AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "Donations points : " + StoreManager::GetStringPoints(player), GOSSIP_SENDER_MAIN, 0);
-            AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "Transform my vote points into 1 donation point (10 vp = 10 dp)", GOSSIP_SENDER_MAIN, 999998);
-
+            AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "Transform my vote points into 1 donation point (10 vp = 1 dp)", GOSSIP_SENDER_MAIN, 999998);
+            if(player->getLevel() == 1)
+            AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "|cff00872bLevel 80 Character Boost", GOSSIP_SENDER_MAIN, 999997);
             for (auto it = StoreManager::StoreCategories.begin(); it != StoreManager::StoreCategories.end(); it++)
             {
                 AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, it->second, GOSSIP_SENDER_MAIN, it->first);
@@ -51,7 +416,10 @@ public:
         if (action < 1000) {
             std::map<int, StoreManager::StoreElement> TempMap = StoreManager::LoadElementsByCategoryId(action);
             AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "Donations points : " + StoreManager::GetStringPoints(player), GOSSIP_SENDER_MAIN, 0);
-            AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "Transform my vote points into 1 donation point (10 vp = 10 dp)", GOSSIP_SENDER_MAIN, 999998);
+            AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "Transform my vote points into 1 donation point (10 vp = 1 dp)", GOSSIP_SENDER_MAIN, 999998);
+            if (player->getLevel() < 80)
+            AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "|cff00872bLevel 80 Character Boost", GOSSIP_SENDER_MAIN, 999997);
+
             for (auto it = TempMap.begin(); it != TempMap.end(); it++)
             {
                 if (it->first)

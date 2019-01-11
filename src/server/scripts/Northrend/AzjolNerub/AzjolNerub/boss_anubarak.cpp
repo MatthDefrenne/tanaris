@@ -144,9 +144,9 @@ public:
 
             events.SetPhase(PHASE_EMERGE);
             events.ScheduleEvent(EVENT_CLOSE_DOOR, 5s);
-            events.ScheduleEvent(EVENT_POUND, randtime(Seconds(2), Seconds(4)), 0, PHASE_EMERGE);
-            events.ScheduleEvent(EVENT_LEECHING_SWARM, randtime(Seconds(5), Seconds(7)), 0, PHASE_EMERGE);
-            events.ScheduleEvent(EVENT_CARRION_BEETLES, randtime(Seconds(14), Seconds(17)), 0, PHASE_EMERGE);
+            //events.ScheduleEvent(EVENT_POUND, randtime(Seconds(2), Seconds(4)), 0, PHASE_EMERGE);
+            //events.ScheduleEvent(EVENT_LEECHING_SWARM, randtime(Seconds(5), Seconds(7)), 0, PHASE_EMERGE);
+            //events.ScheduleEvent(EVENT_CARRION_BEETLES, randtime(Seconds(14), Seconds(17)), 0, PHASE_EMERGE);
 
             // set up world triggers
             std::list<TempSummon*> summoned;
@@ -713,7 +713,4 @@ void AddSC_boss_anub_arak()
     new npc_anubarak_anub_ar_guardian();
     new npc_anubarak_anub_ar_venomancer();
     new npc_anubarak_impale_target();
-
-    new spell_anubarak_pound();
-    new spell_anubarak_carrion_beetles();
 }

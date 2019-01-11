@@ -546,6 +546,16 @@ class spell_sapphiron_icebolt : public SpellScriptLoader
         void HandleApply(AuraEffect const* /*eff*/, AuraEffectHandleModes /*mode*/)
         {
             GetTarget()->ApplySpellImmune(SPELL_ICEBOLT, IMMUNITY_DAMAGE, SPELL_SCHOOL_MASK_FROST, true);
+            if (_block)
+                return;
+
+            if (GetTarget()->isMoving())
+                return;
+            float x, y, z;
+
+            GetTarget()->GetPosition(x, y, z);
+            if (GameObject* block = GetTarget()->SummonGameObject(GO_ICEBLOCK, x, y, z, 0.f, QuaternionData(), 25))
+                _block = block->GetGUID();
         }
 
         void HandleRemove(AuraEffect const* /*eff*/, AuraEffectHandleModes /*mode*/)
@@ -556,23 +566,12 @@ class spell_sapphiron_icebolt : public SpellScriptLoader
             GetTarget()->ApplySpellImmune(SPELL_ICEBOLT, IMMUNITY_DAMAGE, SPELL_SCHOOL_MASK_FROST, false);
         }
 
-        void HandlePeriodic(AuraEffect const* /*eff*/)
-        {
-            if (_block)
-                return;
-            if (GetTarget()->isMoving())
-                return;
-            float x, y, z;
-            GetTarget()->GetPosition(x, y, z);
-            if (GameObject* block = GetTarget()->SummonGameObject(GO_ICEBLOCK, x, y, z, 0.f, QuaternionData(), 25))
-                _block = block->GetGUID();
-        }
+      
 
         void Register() override
         {
             AfterEffectApply += AuraEffectApplyFn(spell_sapphiron_icebolt_AuraScript::HandleApply, EFFECT_0, SPELL_AURA_MOD_STUN, AURA_EFFECT_HANDLE_REAL);
             AfterEffectRemove += AuraEffectRemoveFn(spell_sapphiron_icebolt_AuraScript::HandleRemove, EFFECT_0, SPELL_AURA_MOD_STUN, AURA_EFFECT_HANDLE_REAL);
-            OnEffectPeriodic += AuraEffectPeriodicFn(spell_sapphiron_icebolt_AuraScript::HandlePeriodic, EFFECT_2, SPELL_AURA_PERIODIC_TRIGGER_SPELL);
         }
 
         ObjectGuid _block;

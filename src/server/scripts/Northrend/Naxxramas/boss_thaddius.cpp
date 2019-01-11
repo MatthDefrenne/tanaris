@@ -261,9 +261,10 @@ struct boss_thaddius : public BossAI
                     }
                     break;
                 case ACTION_FEUGEN_DIED:
-                    if (Creature* feugen = ObjectAccessor::GetCreature(*me, instance->GetGuidData(DATA_FEUGEN)))
+                    if (Creature* feugen = ObjectAccessor::GetCreature(*me, instance->GetGuidData(DATA_FEUGEN))) {
+                        stalaggAlive = feugen->isDead();
                         feugen->AI()->DoAction(ACTION_FEUGEN_REVIVING_FX);
-                    feugenAlive = false;
+                    }
                     if (stalaggAlive)
                         events.ScheduleEvent(EVENT_REVIVE_FEUGEN, 5s, 0, PHASE_PETS);
                     else
@@ -271,9 +272,10 @@ struct boss_thaddius : public BossAI
 
                     break;
                 case ACTION_STALAGG_DIED:
-                    if (Creature* stalagg = ObjectAccessor::GetCreature(*me, instance->GetGuidData(DATA_STALAGG)))
+                    if (Creature* stalagg = ObjectAccessor::GetCreature(*me, instance->GetGuidData(DATA_STALAGG))) {
+                        feugenAlive = stalagg->isDead();
                         stalagg->AI()->DoAction(ACTION_STALAGG_REVIVING_FX);
-                    stalaggAlive = false;
+                    }
                     if (feugenAlive)
                         events.ScheduleEvent(EVENT_REVIVE_STALAGG, 5s, 0, PHASE_PETS);
                     else

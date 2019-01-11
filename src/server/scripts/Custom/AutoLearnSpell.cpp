@@ -93,12 +93,7 @@ public:
     {
         if (level == player->getLevel() + 1)
             return;
-
-
-        if ((player->getLevel() == 10)) {
-            player->LearnSpell(65917, false);
-            player->GetSession()->SendAreaTriggerMessage("Thanks for playing on Tanaris! You are the fee to play on the opening, so, we give you a rare mount! :)");
-        }
+      
         uint32 family;
         switch (player->getClass())
         {

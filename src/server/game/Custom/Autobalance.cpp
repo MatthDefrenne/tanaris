@@ -39,6 +39,12 @@ void setHealthCreature(Map* dungeon, Creature* creature) {
     if (diffPlayer == 0)
         return; // If the group are fully grouped.
 
+    if (diffPlayer < 5 && maxPlayers == 10)
+        diffPlayer = 5;
+
+    if (diffPlayer < 10 && maxPlayers == 25)
+        diffPlayer = 5;
+
     uint64 creatureMaxHealth = creature->GetMaxHealth();
 
     switch (maxPlayers)
@@ -93,9 +99,13 @@ void Autobalance::Update(Creature * creature)
     if (!creature->GetMap()->IsRaid())
         return;
 
+    if (!creature->IsAlive())
+        return;
 
     if (creature->IsInCombat() && !creature->IsSummon())
         return;
+
+   
 
     auto itX = Autobalance::m_creaturesGUID.find(creature->GetGUID());
 
@@ -163,6 +173,12 @@ void Autobalance::UpdateDamage(Unit* unit, uint32& damage)
 
     if (diffPlayer == 0)
         return; // If the group are fully grouped.
+
+    if (diffPlayer < 5 && maxPlayers == 10)
+        diffPlayer = 5;
+
+    if (diffPlayer < 10 && maxPlayers == 25)
+        diffPlayer = 5;
 
 
     switch (maxPlayers)

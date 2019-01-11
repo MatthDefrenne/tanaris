@@ -27,6 +27,9 @@ public:
     static std::map<int, StoreElement> LoadElementsByCategoryId(int categoryId);
     static void Buy(int elementId, Player* player);
     static int GetDonationPoints(Player* player);
+    static int GetVotesPoints(Player* player);
+    static int GetFreeBoost(Player* player);
+
     static std::string GetStringPoints(Player* player);
 
 };

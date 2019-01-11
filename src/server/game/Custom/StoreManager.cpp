@@ -287,3 +287,20 @@ int StoreManager::GetDonationPoints(Player * player)
     return points;
 }
 
+int StoreManager::GetVotesPoints(Player * player)
+{
+    QueryResult result = LoginDatabase.PQuery("SELECT vpoints FROM account WHERE id = %u", player->GetSession()->GetAccountId());
+    Field* fields = result->Fetch();
+    uint32 points = fields[0].GetUInt32();
+
+    return points;
+}
+
+int StoreManager::GetFreeBoost(Player * player)
+{
+    QueryResult result = LoginDatabase.PQuery("SELECT freeCharacterBoostAvailable FROM account WHERE id = %u", player->GetSession()->GetAccountId());
+    Field* fields = result->Fetch();
+    uint32 points = fields[0].GetUInt32();
+
+    return points;
+}
