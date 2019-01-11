@@ -262,8 +262,7 @@ struct boss_thaddius : public BossAI
                     break;
                 case ACTION_FEUGEN_DIED:
                     if (Creature* feugen = ObjectAccessor::GetCreature(*me, instance->GetGuidData(DATA_FEUGEN))) {
-                        stalaggAlive = feugen->isDead();
-                        feugen->AI()->DoAction(ACTION_FEUGEN_REVIVING_FX);
+                        stalaggAlive = !feugen->IsAlive();
                     }
                     if (stalaggAlive)
                         events.ScheduleEvent(EVENT_REVIVE_FEUGEN, 5s, 0, PHASE_PETS);
@@ -273,8 +272,7 @@ struct boss_thaddius : public BossAI
                     break;
                 case ACTION_STALAGG_DIED:
                     if (Creature* stalagg = ObjectAccessor::GetCreature(*me, instance->GetGuidData(DATA_STALAGG))) {
-                        feugenAlive = stalagg->isDead();
-                        stalagg->AI()->DoAction(ACTION_STALAGG_REVIVING_FX);
+                        feugenAlive = !stalagg->IsAlive();
                     }
                     if (feugenAlive)
                         events.ScheduleEvent(EVENT_REVIVE_STALAGG, 5s, 0, PHASE_PETS);
@@ -301,7 +299,8 @@ struct boss_thaddius : public BossAI
             events.SetPhase(PHASE_TRANSITION);
 
             me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
-
+            me->setActive(true);
+            me->SetImmuneToPC(false);
             events.ScheduleEvent(EVENT_TRANSITION_1, 10s, 0, PHASE_TRANSITION);
             events.ScheduleEvent(EVENT_TRANSITION_2, 12s, 0, PHASE_TRANSITION);
             events.ScheduleEvent(EVENT_TRANSITION_3, 14s, 0, PHASE_TRANSITION);

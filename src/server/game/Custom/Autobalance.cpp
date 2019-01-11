@@ -39,10 +39,10 @@ void setHealthCreature(Map* dungeon, Creature* creature) {
     if (diffPlayer == 0)
         return; // If the group are fully grouped.
 
-    if (diffPlayer < 5 && maxPlayers == 10)
-        diffPlayer = 5;
+    if (diffPlayer > 10 && maxPlayers == 25)
+        diffPlayer = 10;
 
-    if (diffPlayer < 10 && maxPlayers == 25)
+    if (diffPlayer > 5 && maxPlayers == 10)
         diffPlayer = 5;
 
     uint64 creatureMaxHealth = creature->GetMaxHealth();
@@ -55,7 +55,7 @@ void setHealthCreature(Map* dungeon, Creature* creature) {
         break;
     case 10:
         for (size_t i = 0; i < diffPlayer; i++)
-            creatureMaxHealth *= 0.75;
+            creatureMaxHealth *= 0.70;
         break;
     case 20:
         for (size_t i = 0; i < diffPlayer; i++)
@@ -63,7 +63,7 @@ void setHealthCreature(Map* dungeon, Creature* creature) {
         break;
     case 25:
         for (size_t i = 0; i < diffPlayer; i++)
-            creatureMaxHealth *= 0.85;
+            creatureMaxHealth *= 0.95;
         break;
     case 40:
         for (size_t i = 0; i < diffPlayer; i++)
@@ -174,26 +174,24 @@ void Autobalance::UpdateDamage(Unit* unit, uint32& damage)
     if (diffPlayer == 0)
         return; // If the group are fully grouped.
 
-    if (diffPlayer < 5 && maxPlayers == 10)
-        diffPlayer = 5;
 
-    if (diffPlayer < 10 && maxPlayers == 25)
+    if (diffPlayer > 10 && maxPlayers == 25)
+        diffPlayer = 10;
+
+    if (diffPlayer > 5 && maxPlayers == 10)
         diffPlayer = 5;
+   
 
 
     switch (maxPlayers)
     {
-    case 5:
-        for (size_t i = 0; i < diffPlayer; i++)
-            damage *= 0.63;
-        break;
     case 10:
         for (size_t i = 0; i < diffPlayer; i++)
             damage *= 0.75;
         break;
     case 25:
         for (size_t i = 0; i < diffPlayer; i++)
-            damage *= 0.85;
+            damage *= 0.75;
         break;
     case 40:
         for (size_t i = 0; i < diffPlayer; i++)

@@ -186,7 +186,7 @@ void GiveAllStuff(Player* player, uint32 Specialization) {
         player->StoreNewItemInBestSlots(40867, 1);
         player->LearnSpell(197, false);
         break;
-    case CLASS_HUNTER:
+    case CLASS_HUNTER: {
         player->StoreNewItemInBestSlots(35645, 1);
         player->StoreNewItemInBestSlots(36980, 1);
         player->StoreNewItemInBestSlots(37840, 1);
@@ -196,6 +196,7 @@ void GiveAllStuff(Player* player, uint32 Specialization) {
         player->LearnSpell(8737, false);
         player->LearnSpell(266, false);
         player->LearnSpell(227, false);
+    }
         break;
 
     case CLASS_PRIEST:
@@ -289,10 +290,12 @@ void Boost(Player* player, uint32 Specialization, uint32 free) {
     player->LearnSpell(34091, false);
     player->LearnSpell(54197, false);
 
-    if (player->GetCFSTeam() == TEAM_ALLIANCE)
-        player->AddItem(25471, 1);
-    else
+    if (player->getRace(true) == RACE_ORC || player->getRace(true) == RACE_TAUREN
+        || player->getRace(true) == RACE_UNDEAD_PLAYER
+        || player->getRace(true) == RACE_BLOODELF || player->getRace(true) == RACE_TROLL)
         player->AddItem(25474, 1);
+    else
+        player->AddItem(25471, 1);
 
 
     // Teleport to dalaran.
@@ -418,8 +421,8 @@ public:
             std::map<int, StoreManager::StoreElement> TempMap = StoreManager::LoadElementsByCategoryId(action);
             AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "Donations points : " + StoreManager::GetStringPoints(player), GOSSIP_SENDER_MAIN, 0);
             AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "Transform my vote points into 1 donation point (10 vp = 1 dp)", GOSSIP_SENDER_MAIN, 999998);
-            if (player->getLevel() < 80)
-            AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "|cff00872bLevel 80 Character Boost", GOSSIP_SENDER_MAIN, 999997);
+            if (player->getLevel() == 1)
+               AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "|cff00872bLevel 80 Character Boost", GOSSIP_SENDER_MAIN, 999997);
 
             for (auto it = TempMap.begin(); it != TempMap.end(); it++)
             {
