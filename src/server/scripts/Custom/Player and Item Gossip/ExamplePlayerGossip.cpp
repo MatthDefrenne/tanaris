@@ -289,10 +289,10 @@ void Boost(Player* player, uint32 Specialization, uint32 free) {
     player->LearnSpell(34091, false);
     player->LearnSpell(54197, false);
 
-    if (player->GetTeam() == TEAM_ALLIANCE)
-        player->AddItem(25474, 1);
-    else
+    if (player->GetCFSTeam() == TEAM_ALLIANCE)
         player->AddItem(25471, 1);
+    else
+        player->AddItem(25474, 1);
 
 
     // Teleport to dalaran.
