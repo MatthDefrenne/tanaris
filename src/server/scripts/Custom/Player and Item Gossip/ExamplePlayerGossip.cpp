@@ -154,6 +154,7 @@ void GiveAllStuff(Player* player, uint32 Specialization) {
             player->StoreNewItemInBestSlots(37723, 1);
             player->StoreNewItemInBestSlots(37064, 1);
             player->StoreNewItemInBestSlots(38365, 1);
+            player->StoreNewItemInBestSlots(36980, 1);
 
         }
         if (Specialization == GOSSIP_HEAL) {
@@ -281,12 +282,12 @@ void Boost(Player* player, uint32 Specialization, uint32 free) {
     player->AddItem(37719, 1); // mount
     player->ModifyMoney(10000000); // 1000 golds
 
-    player->LearnSpell(33388, true);
-    player->LearnSpell(33391, true);
-    player->LearnSpell(34090, true);
-    player->LearnSpell(34090, true);
-    player->LearnSpell(34091, true);
-    player->LearnSpell(54197, true);
+    player->LearnSpell(33388, false);
+    player->LearnSpell(33391, false);
+    player->LearnSpell(34090, false);
+    player->LearnSpell(34090, false);
+    player->LearnSpell(34091, false);
+    player->LearnSpell(54197, false);
 
     if (player->GetTeam() == TEAM_ALLIANCE)
         player->AddItem(25474, 1);
@@ -310,13 +311,13 @@ void Boost(Player* player, uint32 Specialization, uint32 free) {
 
 void ShowSpecializationChoice(Player* player) {
     if (player->getClass() == CLASS_WARRIOR || player->getClass() == CLASS_PALADIN || player->getClass() == CLASS_DRUID || player->getClass() == CLASS_DEATH_KNIGHT)
-        AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "Specialization TANK", GOSSIP_SENDER_MAIN, GOSSIP_TANK, "Are you sur?", 0, false);
+        AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "Specialization TANK", GOSSIP_SENDER_MAIN, GOSSIP_TANK, "Are you sure?", 0, false);
     if (player->getClass() == CLASS_PALADIN || player->getClass() == CLASS_DRUID || player->getClass() == CLASS_SHAMAN || player->getClass() == CLASS_PRIEST)
-        AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "Specialization HEAL", GOSSIP_SENDER_MAIN, GOSSIP_HEAL, "Are you sur?", 0, false);
+        AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "Specialization HEAL", GOSSIP_SENDER_MAIN, GOSSIP_HEAL, "Are you sure?", 0, false);
     if (player->getClass() == CLASS_WARLOCK || player->getClass() == CLASS_DRUID || player->getClass() == CLASS_MAGE || player->getClass() == CLASS_SHAMAN || player->getClass() == CLASS_PRIEST || player->getClass() == CLASS_PRIEST)
-    AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "Specialization DPS CAST", GOSSIP_SENDER_MAIN, GOSSIP_DPS_CAST, "Are you sur?", 0, false);
+    AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "Specialization DPS CAST", GOSSIP_SENDER_MAIN, GOSSIP_DPS_CAST, "Are you sure?", 0, false);
     if (player->getClass() == CLASS_HUNTER || player->getClass() == CLASS_ROGUE || player->getClass() == CLASS_SHAMAN || player->getClass() == CLASS_DEATH_KNIGHT|| player->getClass() == CLASS_PALADIN || player->getClass() == CLASS_DRUID || player->getClass() == CLASS_WARRIOR)
-    AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "Specialization DPS", GOSSIP_SENDER_MAIN, GOSSIP_DPS, "Are you sur?", 0, false);
+    AddGossipItemFor(player, GOSSIP_ICON_MONEY_BAG, "Specialization DPS", GOSSIP_SENDER_MAIN, GOSSIP_DPS, "Are you sure?", 0, false);
         SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, player->GetGUID());
 }
 
