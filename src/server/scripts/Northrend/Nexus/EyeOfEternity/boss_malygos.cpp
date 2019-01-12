@@ -917,6 +917,7 @@ public:
                     case EVENT_MOVE_TO_P_THREE_POINT:
                         Talk(SAY_START_P_THREE);
                         me->GetMotionMaster()->MovePoint(POINT_IDLE_P_THREE, MalygosPositions[4]);
+                        DoZoneInCombat();
                         break;
                     case EVENT_START_P_THREE:
                         me->GetMap()->SetZoneOverrideLight(AREA_EYE_OF_ETERNITY, LIGHT_OBSCURE_ARCANE_RUNES, 1 * IN_MILLISECONDS);

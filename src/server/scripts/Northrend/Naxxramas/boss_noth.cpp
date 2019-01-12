@@ -246,9 +246,9 @@ public:
                         events.SetPhase(PHASE_BALCONY);
                         //me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
                         //me->SetImmuneToPC(true);
-                        me->AttackStop();
                         me->StopMoving();
                         me->RemoveAllAuras();
+                        me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_STUNNED);
 
                         events.ScheduleEvent(EVENT_BALCONY_TELEPORT, Seconds(3), 0, PHASE_BALCONY);
                         events.ScheduleEvent(EVENT_WAVE, randtime(Seconds(5), Seconds(8)), 0, PHASE_BALCONY);
@@ -302,6 +302,7 @@ public:
                         break;
                     case EVENT_GROUND_ATTACKABLE:
                         me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
+                        me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_STUNNED);
                         me->SetImmuneToPC(false);
                         me->SetReactState(REACT_AGGRESSIVE);
                         break;
